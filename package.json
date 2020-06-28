@@ -1,0 +1,22 @@
+{
+  "name": "sprint-12",
+  "version": "1.0.0",
+  "description": "deploing server for mesto project",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "author": "anrypwnz",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.3.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.21.2",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "eslint-config-airbnb": "^18.2.0",
+    "express": "^4.17.1"
+  }
+}
