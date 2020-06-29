@@ -20,7 +20,12 @@ const cardShema = new mongoose.Schema({
     required: true,
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
-  }]
+    default: [],
+  }],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  }
 }),
 
 module.exports = mongoose.model('card', cardShema);
