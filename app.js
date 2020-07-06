@@ -40,6 +40,6 @@ app.use((req, res, next) => {
 });
 
 module.exports.createCard = (req, res) => {
-  console.log(req.user._id); // _id станет доступен
+  console.log(req.user._id);
   res.send('ok');
 };

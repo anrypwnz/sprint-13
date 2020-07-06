@@ -10,11 +10,11 @@ module.exports.getCard = (req, res) => {
 module.exports.createCard = (req, res) => {
   console.log(req.user._id);
   const {
-    name, link, OwnerId, likesId,
+    name, link, likesId, ownerId,
   } = req.body;
 
   Card.create({
-    name, link, owner: OwnerId, likes: likesId,
+    name, link, owner: ownerId, likes: likesId,
   })
     .then((owner) => res.send({ data: owner }))
     .catch((err) => res.status(500).send({ message: err.message }));
