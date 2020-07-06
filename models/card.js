@@ -3,16 +3,16 @@ const mongoose = require('mongoose');
 const cardShema = new mongoose.Schema({
   name: {
     required: true,
-    type: String,
+    type: mongoose.Schema.Types.String,
     minlength: 2,
     maxlength: 30,
   },
   link: {
     required: true,
-    type: String,
+    type: mongoose.Schema.Types.String,
   },
   owner: {
-    required: true,
+    // required: true,
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
   },
@@ -23,9 +23,9 @@ const cardShema = new mongoose.Schema({
     default: [],
   }],
   createdAt: {
-    type: Date,
+    type: mongoose.Schema.Types.Date,
     default: Date.now,
-  }
-}),
+  },
+});
 
 module.exports = mongoose.model('card', cardShema);
