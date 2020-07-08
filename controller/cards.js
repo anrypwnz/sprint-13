@@ -6,18 +6,25 @@ module.exports.getCard = (req, res) => {
     .catch((err) => res.status(500).send({ message: err.message }));
 };
 
-module.exports.delCard = (req, res) => {
-  Card.findByIdAndRemove(req.params.id)
-    .then((card) => res.send('deleted: ', card))
-    .catch((err) => res.status(500).send({ err, message: 'Произошла ошибка' }));
+module.exports.delCard = async (req, res) => {
+  try {
+    const card = await Card.findByIdAndRemove(req.params.id);
+    if (card == null) {
+      res.send('Card not found');
+    } else {
+      res.status(200).send({ 'deleted_card': card });
+    }
+  } catch (err) {
+    res.status(500).send({ message: err });
+  }
 };
 
 module.exports.createCard = async (req, res) => {
   const {
-    name, link, OwnerId, likesId,
+    name, link,
   } = req.body;
   await Card.create({
-    name, link, owner: OwnerId, likes: likesId,
+    name, link, owner: req.user._id, likes: [],
   })
     .then((data) => res.send({ data }))
     .catch((err) => res.status(500).send({ message: err.message }));

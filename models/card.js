@@ -8,14 +8,19 @@ const cardShema = new mongoose.Schema({
     maxlength: 30,
   },
   link: {
-    required: true,
     type: mongoose.Schema.Types.String,
+    validate: {
+      validator(v) {
+        return /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.test(v);
+      },
+      message: (props) => `${props.value} is not a valid link!`,
+    },
+    required: [true, 'Link required'],
   },
   owner: {
     required: true,
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
-    default: '5f02ce1cd6f2bb4c3ca41cb0',
   },
   likes: [{
     required: true,

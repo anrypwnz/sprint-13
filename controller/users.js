@@ -1,15 +1,7 @@
 const User = require('../models/user.js');
 
-module.exports.getOwner = (req, res) => {
-  User.find({})
-    .populate(['owner', 'likes'])
-    .then((owner) => res.send({ data: owner }))
-    .catch((err) => res.status(500).send({ message: err.message }));
-};
-
 module.exports.User = (req, res) => {
   const { name, about, avatar } = req.body;
-
   User.create({ name, about, avatar })
     .then((owner) => res.send({ data: owner }))
     .catch((err) => res.status(500).send({ message: err.message }));
@@ -24,7 +16,7 @@ module.exports.createUser = async (req, res) => {
       res.status(500).send('create error');
     }
   } catch (e) {
-    console.error(e);
+    res.status(500).send(e);
   }
 };
 
@@ -39,6 +31,6 @@ module.exports.getUsers = async (req, res) => {
     const users = await User.find({});
     res.send(users);
   } catch (e) {
-    console.error(e);
+    res.status(500).send(e);
   }
 };
