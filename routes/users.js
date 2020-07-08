@@ -1,8 +1,5 @@
 const router = require('express').Router();
-const bodyParser = require('body-parser');
 const User = require('../models/user');
-
-router.use(bodyParser.json());
 
 router.get('/users', async (req, res) => {
   try {

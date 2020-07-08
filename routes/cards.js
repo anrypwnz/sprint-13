@@ -1,9 +1,6 @@
 const router = require('express').Router();
-const bodyParser = require('body-parser');
 
 const Card = require('../models/card');
-
-router.use(bodyParser.json());
 
 router.get('/cards', (req, res) => {
   Card.find({})
@@ -19,7 +16,6 @@ router.delete('/cards/:id', (req, res) => {
 
 router.post('/cards', async (req, res) => {
   try {
-    console.log(req.body);
     const created = await Card.create(req.body);
     if (created) {
       res.send('create ok');

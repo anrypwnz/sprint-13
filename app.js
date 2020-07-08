@@ -38,8 +38,3 @@ app.use((req, res, next) => {
   };
   next();
 });
-
-module.exports.createCard = (req, res) => {
-  console.log(req.user._id);
-  res.send('ok');
-};
