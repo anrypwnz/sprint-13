@@ -15,6 +15,5 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'quote-props': 'off',
     'linebreak-style': 'off',
-    'no-useless-escape': 'off',
   },
 };
