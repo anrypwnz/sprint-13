@@ -10,7 +10,7 @@ module.exports.delCard = async (req, res) => {
   try {
     const card = await Card.findByIdAndRemove(req.params.id);
     if (card == null) {
-      res.send('Card not found');
+      res.status(404).send('Card not found');
     } else {
       res.status(200).send({ 'deleted_card': card });
     }
