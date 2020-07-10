@@ -1,32 +1,10 @@
-const fs = require('fs');
-const path = require('path');
 const router = require('express').Router();
+const bodyParser = require('body-parser');
+const { createUser, getUser, getUsers } = require('../controller/users');
 
-const usersData = path.join(__dirname, '../data/users.json');
+router.use(bodyParser.json());
+router.get('/users', getUsers);
+router.get('/users/:id', getUser);
+router.post('/users', createUser);
 
-router.get('/users', (req, res) => {
-  fs.readFile(usersData, { encoding: 'utf8' }, (err, data) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    res.send(data);
-  });
-});
-
-router.get('/users/:id', (req, res) => {
-  fs.readFile(usersData, { encoding: 'utf8' }, (err, data) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    const inData = JSON.parse(data);
-    const resUser = inData.find((item) => item._id === req.params.id);
-    if (resUser) {
-      res.send(resUser);
-    } else {
-      res.status(404).send({ 'message': 'Нет пользователя с таким id' });
-    }
-  });
-});
 module.exports = router;

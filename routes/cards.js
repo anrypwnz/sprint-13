@@ -1,17 +1,10 @@
-const fs = require('fs');
-const path = require('path');
 const router = require('express').Router();
+const bodyParser = require('body-parser');
+const { createCard, getCard, delCard } = require('../controller/cards');
 
-const cards = path.join(__dirname, '../data/cards.json');
-
-router.get('/cards', (req, res) => {
-  fs.readFile(cards, { encoding: 'utf8' }, (err, data) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    res.send(data);
-  });
-});
+router.use(bodyParser.json());
+router.get('/cards', getCard);
+router.delete('/cards/:id', delCard);
+router.post('/cards', createCard);
 
 module.exports = router;

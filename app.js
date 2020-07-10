@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const app = express();
-const path = require('path');
 const cards = require('./routes/cards.js');
 const users = require('./routes/users.js');
 
@@ -14,8 +13,20 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false,
   useUnifiedTopology: true,
 });
+mongoose.connection.once('open', () => {
+  console.log('### successful connection to db');
+});
+mongoose.connection.on('error', (err) => {
+  console.log('### error', err);
+  process.exit(1);
+});
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res, next) => {
+  req.user = {
+    _id: '5f02ce1cd6f2bb4c3ca41cb0',
+  };
+  next();
+});
 app.use(cards);
 app.use(users);
 app.all('*', (req, res, next) => {
